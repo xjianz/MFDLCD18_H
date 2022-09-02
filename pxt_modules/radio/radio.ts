@@ -200,7 +200,7 @@ namespace radio {
             const offset = getStringOffset(this.packetType) as number;
             let tmp = this.data.slice(offset + 1, this.data[offset]);
             if (tmp) {
-                return offset ? this.data.slice(offset + 1, this.data[offset]).toString() : undefined;
+                return offset ? tmp.toString() : undefined;
             } else {
                 return undefined;
             }
@@ -377,7 +377,9 @@ namespace radio {
         if (packet.packetType == PACKET_TYPE_BUFFER) {
             serial.writeString(",\"b\":\"");
             // TODO: proper base64 encoding
-            serial.writeString(packet.bufferPayload.toString());
+            if (packet.bufferPayload) {
+                serial.writeString(packet.bufferPayload.toString());
+            }
             serial.writeString("\"");
         }
         if (packet.hasNumber()) {
