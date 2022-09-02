@@ -1635,9 +1635,11 @@ void anyPrint(TValue v) {
         }
     } else {
 #ifndef X86_64
-        String s = numops::toString(v);
-        DMESG("[%s %p = %s]", pxt::typeOf(v)->getUTF8Data(), v, s->getUTF8Data());
-        decr((TValue)s);
+        if (isRefCounted(v)) {
+            String s = numops::toString(v);
+            DMESG("[%s %p = %s]", pxt::typeOf(v)->getUTF8Data(), v, s->getUTF8Data());
+            decr((TValue)s);
+        }
 #endif
     }
 }

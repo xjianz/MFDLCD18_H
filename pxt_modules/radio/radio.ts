@@ -198,7 +198,12 @@ namespace radio {
 
         get stringPayload() {
             const offset = getStringOffset(this.packetType) as number;
-            return offset ? this.data.slice(offset + 1, this.data[offset]).toString() : undefined;
+            let tmp = this.data.slice(offset + 1, this.data[offset]);
+            if (tmp) {
+                return offset ? this.data.slice(offset + 1, this.data[offset]).toString() : undefined;
+            } else {
+                return undefined;
+            }
         }
 
         set stringPayload(val: string) {
