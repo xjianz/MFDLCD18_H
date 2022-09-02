@@ -52,7 +52,9 @@ namespace serial {
     //% weight=89 blockGap=8
     //% blockId=serial_writenumber block="serial|write number %value"
     export function writeNumber(value: number): void {
-        writeString(value.toString());
+        if (value) {
+            writeString(value.toString());
+        }
     }
 
     /**
